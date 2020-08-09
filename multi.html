@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="css/car.gif" type="image/x-icon">
+    <title>smart camera</title>
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body onload="load_webcam(),tampilData()"> 
+
+<div class="header">
+    <li>model      : <input  id="model"style="background-color: transparent;color:yellow"></li>
+  </div>
+
+  <div class="row" >
+    <div class="col-3 col-s-3 menu">
+      <div class="aside" >
+      <ul>
+        <canvas id="canvas" style="width: 300px;height:200px;background-repeat: no-repeat;background-position: center; "></canvas>
+        <video id="Video" autoplay style="display: none"></video>
+        <li>Jarak      : <input  id="jarak"style="background-color: transparent;color:yellow"></li>
+        <li>rentang    : <input  id="say"style="background-color: transparent;color:yellow"></li>
+        <li>Lebar      : <input  id="lebar"style="background-color: transparent;color:yellow"></li>
+        <li>Tinggi     : <input id="tinggi"style="background-color: transparent;color:yellow"></li>
+        <li>Prediksi   : <input id="myInput"style="background-color: transparent;color:yellow"></li> 
+      
+      </ul>
+      </div>
+    </div>
+
+
+    <div class="col-5 right">
+      <div class="aside">
+      
+        <table id="query" >
+            <thead >
+                <tr>
+                    <th scope="col">waktu</th>
+                    <th scope="col">jarak</th>
+                    <th scope="col">suhu dalam celcius</th>	
+                    <th scope="col">suhu dalam farenheit</th>	
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+      </div>
+  </div>
+  
+
+
+
+<audio src="audio/selamat datang. saya adalah ,sistem pintar .untuk deteksi suhu...silahkan cek suhu anda .. letakan tangan pada papan.....tunggu sampai sistem kami memberitahukan suhu anda..terima kasih..mp3"    id="audio-activated"    preload="auto" autostart="true" ></audio>
+<script src="jsfix/jquery-3.2.1.slim.min.js"></script>
+<script src="tf/tfjs.min.js"> </script>
+<script src="tf/coco.min.js"> </script>
+<script src="tf/tfjs-multi-obj-det.js"></script>
+<script src="/audio/audio.js"></script>
+<script src="jsfix/firebase.js"></script>
+
+
+
+
+
+
+<script>
+
+ // Initialize Firebase
+ var config= {
+  apiKey: "AIzaSyBYVwVZUBLXSm7iR5Fp6k-dziJGEuhwExk",
+  authDomain: "megaboth007.firebaseapp.com",
+  databaseURL: "https://megaboth007.firebaseio.com",
+  projectId: "megaboth007",
+  storageBucket: "megaboth007.appspot.com",
+  messagingSenderId: "942424390212",
+  appId: "1:942424390212:web:c3622743b0fba57b5a1a11"
+  
+};
+firebase.initializeApp(config);
+var dbRef = firebase.database();
+ 
+//membuat database untuk halaman login-----------------------------------------------------------------------------
+    var database = firebase.database();
+//video------------------------------------------------------------------------------------------------------------
+
+
+
+
+//melihat content
+      var baca_jarak = document.getElementById('jarak');
+      dbRef.ref("/Jarak").on('value', snap => baca_jarak.value= snap.val());
+
+
+//melakukan call back pada node firebase      
+var db = firebase.database();
+var ref = db.ref("/Jarak");
+
+
+ref.on("value", function(snapshot) {
+  //logika jarak
+if (snapshot.val()<7){
+document.getElementById('say').value="dekat";
+
+setTimeout(function(){   window.location.assign("face.html"); }, 1000);  
+
+}else{
+  document.getElementById('say').value="jauh";
+}
+
+
+      
+
+
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+}
+);
+
+
+
+
+function tampilData()
+	{
+	// Buat referensi database firebase---------------------
+		var dbRef = firebase.database();
+		var statusAlat = dbRef.ref("deteksi_wajah");
+	// Dapatkan referensi table
+		var table = document.getElementById("query").getElementsByTagName('tbody')[0];
+	// Membuang semua isi table	---------------
+		$("#deteksi_wajah").find("tr:gt(0)").remove();
+
+	// Memuat Data------------------------
+		statusAlat.on("child_added", function(data, prevChildKey) {
+		   	var newstatusAlat = data.val();
+		   	var row = table.insertRow(table.rows.length);
+		   	var cell1 = row.insertCell(0);
+			  var cell2 = row.insertCell(1);
+			  var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+		   	cell1.innerHTML = newstatusAlat.id; 
+		   	cell2.innerHTML = newstatusAlat.jarak_deteksi;
+        cell3.innerHTML = newstatusAlat.suhu_c;
+        cell4.innerHTML = newstatusAlat.suhu_f;
+       
+		});
+	}
+
+
+</script>
+
+</body>
+</html>

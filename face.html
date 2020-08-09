@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="css/car.gif" type="image/x-icon">
+    <link rel="stylesheet" href="css/style2.css">
+</head>
+<body  onload="persiapan()">
+<div class="header">
+    <div style="position: relative;">
+        <video id="video" autoplay style="position:absolute;left:0px;top:0px;width: 320px; height: 240px; border: 1px solid black;"></video>
+        <canvas id="canvas" style="position:absolute;left:0px;top:0px"></canvas>
+    </div>
+</div>
+  <div class="row" >
+    <div class="col-3 col-s-3 menu" style="margin-top: 300px;">
+      <div class="aside" >
+        <p>Waktu: <span id="waktu" style="background-color: transparent;color:yellow"></span> </p>
+      
+        <p>Jarak deteksi : <span id="jarak" style="background-color: transparent;color:yellow"></span> cm</p>
+        <p>Suhu ambient  :<span id="a_suhuc" style="background-color: transparent;color:yellow"></span> celcius</p>
+        <p>Suhu ambient  :<span id="a_suhuf" style="background-color: transparent;color:yellow"></span> Farenheit</p>
+        <p>Suhu Tubuh  :<span id="suhuc" style="background-color: transparent;color:yellow"></span> Celcius</p>
+        <p>Suhu Tubuh  :<span id="suhuf" style="background-color: transparent;color:yellow"></span> Farenheit</p>
+      </div>
+    </div>
+  
+
+<!---database-->
+<audio src="audio/fire.wav"    id="audio-fire"    preload="auto" autostart="true" ></audio>
+<audio src="audio/kami sedang melakukan cek suhu. tetap posisikan tangan pada papan dan hadapkan wajah anda.mp3"    id="audio-persiapan"    preload="auto" autostart="true" ></audio>
+<audio src="audio/terimakasih .suhu anda normal.mp3"   id="audio-ta"    preload="auto" autostart="true" ></audio>
+<audio src="audio/maaf .suhu anda . sangat panas.mp3"    id="audio-tb"    preload="auto" autostart="true" ></audio>
+
+<script src="jsfix/jquery-3.2.1.slim.min.js"></script>
+<script src="audio/audio.js"></script>
+<script src="jsfix/firebase.js"></script>
+<script src="jsfix/script.js"></script>
+<script src="deteksi/facedetec.js"></script>
+<script src="deteksi/webcam.js"></script>
+<script src="deteksi/detec.js"></script>
+
+
+</body>
+</html>
