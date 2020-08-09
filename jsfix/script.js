@@ -62,6 +62,6 @@ function addData_Proses() {
       suhu_c:suhu_c,
       suhu_f:suhu_f,
   });
-  setTimeout(function(){    window.location.assign("multi.html"); }, 15000);  
+  setTimeout(function(){    window.location.assign("index.html"); }, 15000);  
   }
   
