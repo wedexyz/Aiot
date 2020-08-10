@@ -83,7 +83,7 @@
             ctx.fillText(face.faceId, face.x * VIEW_WIDTH, face.y * VIEW_HEIGHT);
             ctx.strokeRect(face.x * VIEW_WIDTH, face.y * VIEW_HEIGHT + 10, face.width * VIEW_WIDTH, face.height * VIEW_HEIGHT);
             addData_Proses();
-           fire();
+            //fire();
             if (document.getElementById('suhuc').innerHTML <37){
            //  setTimeout ( ta(),5000) 
            setTimeout(function(){ ta() }, 10000); 
